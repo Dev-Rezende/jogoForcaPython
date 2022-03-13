@@ -46,6 +46,7 @@ while dnv == "S":
           "\n-> DIGITE UMA PALAVRA PARA OUTRA PESSOA TENTAR ADIVINHAR\n"
           "-> O JOGADOR QUE ADIVINHAR POSSUÍ VIDAS, ONDE EM CADA ERRO UMA VIDA É PERDIDA\n"
           "-> OS ESPAÇOS DA PALAVRA SERÃO SUBSTÍTUIDOS POR '*'\n"
+          f"-> Digite {green}END{lightYellow} para encerrar a partida\n"
           "-> TODAS AS LETRAS SÃO CONVERTIDAS PARA CAIXA ALTA\n"
           "-> O SISTEMA CONVERTE AS LETRAS INSERIDAS EM CAIXA BAIXA\n"
           f"{blue}-> PLAYER 1 - ESCOLHA A PALAVRA SECRETA\n"
@@ -131,9 +132,15 @@ while dnv == "S":
 
         # Input letra + controle de caracteres digitados
         keyLetra = 404
+        keyExit = 0
         while keyLetra == 404:
             letra = input(f"{blue}Informe uma letra:{resetFontColor} ").upper().strip()
-            if len(letra) > 1:
+            if letra == 'END':
+                keyExit = 404
+                dnv = 'N'
+                keyDNV = 0
+                break
+            elif len(letra) > 1:
                 print(f"{separadorSecundario}\n" + (" " * 19) +
                       f"{red}INFORME SOMENTE UMA LETRA! TENTE NOVAMENTE!{resetFontColor}\n"
                       f"{separadorSecundario}")
@@ -154,6 +161,10 @@ while dnv == "S":
                         break
                 keyLetra = 0
                 letrasDig.append(letra)
+
+        # Usuário deseja sair no meio do jogo
+        if keyExit == 404:
+            break
 
         # Reiniciando execução do bloco se a letra for repetida
         if keyRepeat == 404:
